@@ -18,5 +18,4 @@
   		<version>1.5.1-R0.2</version>
   	</dependency>
   </dependencies>
-  <packaging>war</packaging>
 </project>

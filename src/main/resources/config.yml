@@ -1,0 +1,4 @@
+slowRain:
+  enabled: true
+noFallDamageInHay:
+  enabled: true

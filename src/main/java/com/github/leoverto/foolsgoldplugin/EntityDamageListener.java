@@ -1,6 +1,7 @@
 package com.github.leoverto.foolsgoldplugin;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 
@@ -58,13 +59,14 @@ public class EntityDamageListener implements Listener {
 						final List<Integer> thingsToDeleteFinal = thingsToDelete;
 						new BukkitRunnable(){
 							public void run() {
-								for (int i: thingsToDeleteFinal) {
-									Item flyingWheat = (Item) playerWorld.getEntities().get(thingsToDeleteFinal.get(i));
-									flyingWheat.remove();
+								Collection<Item> worldItems = playerWorld.getEntitiesByClass(Item.class);
+								for (Item item : worldItems) {
+									if (thingsToDeleteFinal.contains(item.getEntityId())) {
+										item.remove();
+									}
 								}
 							}
-							
-						}.runTaskLater(new FoolsGoldPlugin(), 20);
+						}.runTaskLater(Bukkit.getPluginManager().getPlugin("FoolsGoldPlugin"), 5);
 					}
 				}
 			}

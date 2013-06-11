@@ -1,7 +1,6 @@
 package com.github.leoverto.foolsgoldplugin;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +17,7 @@ public class FoolsGoldPlugin extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new PlayerMoveListener(), this);
 		getServer().getPluginManager().registerEvents(new EntityDamageListener(), this);
 		getServer().getPluginManager().registerEvents(new PlayerPickupItemListener(), this);
+		getServer().getPluginManager().registerEvents(new PrepareItemCraftListener(), this);
 	}
 	
 	public void onDisable() {

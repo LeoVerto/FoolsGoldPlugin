@@ -1,4 +1,4 @@
 slowRain:
   enabled: true
-noFallDamageInHay:
+hayJump:
   enabled: true

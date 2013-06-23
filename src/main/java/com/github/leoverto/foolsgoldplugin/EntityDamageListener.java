@@ -55,10 +55,9 @@ public class EntityDamageListener implements Listener {
 							Entity curWheat = playerWorld.dropItemNaturally(playerLocation, flyingWheat);
 							curWheat.setMetadata("flyingWheatID", new FixedMetadataValue(Bukkit.getPluginManager().getPlugin("FoolsGoldPlugin"), i));
 							thingsToDelete.add(curWheat.getEntityId());
+							FoolsGoldPlugin.itemsToNotPickup.add(curWheat.getEntityId());
 						}
-						for (int i = 1; i < thingsToDelete.size(); i++) {
-							FoolsGoldPlugin.itemsToNotPickup.add(thingsToDelete.get(i));
-						}
+						
 						final List<Integer> thingsToDeleteFinal = thingsToDelete;
 						
 						
@@ -71,7 +70,7 @@ public class EntityDamageListener implements Listener {
 									}
 								}
 							}
-						}.runTaskLater(Bukkit.getPluginManager().getPlugin("FoolsGoldPlugin"), 20);
+						}.runTaskLater(Bukkit.getPluginManager().getPlugin("FoolsGoldPlugin"), 80);
 					}
 				}
 			}

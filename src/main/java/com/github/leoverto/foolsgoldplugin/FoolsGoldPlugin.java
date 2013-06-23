@@ -8,14 +8,15 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class FoolsGoldPlugin extends JavaPlugin {
 	
-	public void initConfig() {
+	public void loadConfig() {
 		slowRainConfig = this.getConfig().getConfigurationSection("slowRain").getValues(true);
-		hayJump = this.getConfig().getConfigurationSection("hayJump.Enable").getValues(true);
+		hayJump = this.getConfig().getConfigurationSection("hayJump").getValues(true);
 	}
 	
 	@Override
 	public void onEnable() {
 		this.saveDefaultConfig();
+		loadConfig();
 		
 		getServer().getPluginManager().registerEvents(new PlayerMoveListener(), this);
 		getServer().getPluginManager().registerEvents(new EntityDamageListener(), this);

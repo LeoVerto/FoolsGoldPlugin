@@ -21,7 +21,6 @@ public class FoolsGoldPlugin extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new PlayerMoveListener(), this);
 		getServer().getPluginManager().registerEvents(new EntityDamageListener(), this);
 		getServer().getPluginManager().registerEvents(new PlayerPickupItemListener(), this);
-		getServer().getPluginManager().registerEvents(new PrepareItemCraftListener(), this);
 	}
 	
 	public void onDisable() {

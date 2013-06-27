@@ -22,6 +22,8 @@ public class FoolsGoldPlugin extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new PlayerMoveListener(), this);
 		getServer().getPluginManager().registerEvents(new EntityDamageListener(), this);
 		getServer().getPluginManager().registerEvents(new PlayerPickupItemListener(), this);
+		
+		PlayerMoveListener.slownessAmount = Float.parseFloat((String) slowRainConfig.get("slowness"));
 	}
 	
 	public void onDisable() {

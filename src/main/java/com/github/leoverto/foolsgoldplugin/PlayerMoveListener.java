@@ -8,12 +8,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 
 public class PlayerMoveListener implements Listener {
 	
-	private final float SLOWNESS_AMOUNT = 0.1f;
+	protected static float slownessAmount = 0.1f;
 	
 	@EventHandler
 	public void onPlayerMove(PlayerMoveEvent event) {
@@ -27,17 +25,17 @@ public class PlayerMoveListener implements Listener {
 					if (highestBlockY < playerLocationY) { //If the highest block on the player's y is below the player...
 						if (weGaveSlow.containsKey(player.getName())) {
 							if (!weGaveSlow.get(player.getName())) { //If we did give the player a slow effect already...
-								 FoolsGoldPlugin.subtractWalkSpeed(player, SLOWNESS_AMOUNT); //Renew his slow effect.
+								 FoolsGoldPlugin.subtractWalkSpeed(player, slownessAmount); //Renew his slow effect.
 								 weGaveSlow.put(player.getName(), true);
 							 }
 						} else {
-							FoolsGoldPlugin.subtractWalkSpeed(player, SLOWNESS_AMOUNT);
+							FoolsGoldPlugin.subtractWalkSpeed(player, slownessAmount);
 							weGaveSlow.put(player.getName(), true);
 						}
 					} else { //If the highest block on the player's y is above the player, e.g. he's under cover...
 						if (weGaveSlow.containsKey(player.getName())) { //Make sure he has the weGaveSlow metadata, otherwise this part is redundant.
 							if (weGaveSlow.get(player.getName())) { //If we gave the player a slow effect, and he has a slow effect...
-								 FoolsGoldPlugin.addWalkSpeed(player, SLOWNESS_AMOUNT);; //Remove his slow effect.
+								 FoolsGoldPlugin.addWalkSpeed(player, slownessAmount);; //Remove his slow effect.
 								 weGaveSlow.put(player.getName(), false);
 							 }
 						}
@@ -45,7 +43,7 @@ public class PlayerMoveListener implements Listener {
 				} else {
 					if (weGaveSlow.containsKey(player.getName())) {
 						if (weGaveSlow.get(player.getName())) {
-							FoolsGoldPlugin.addWalkSpeed(player, SLOWNESS_AMOUNT);
+							FoolsGoldPlugin.addWalkSpeed(player, slownessAmount);
 							weGaveSlow.put(player.getName(), false);
 						}
 					}
@@ -53,7 +51,7 @@ public class PlayerMoveListener implements Listener {
 			} else {
 				if (weGaveSlow.containsKey(player.getName())) {
 					if (weGaveSlow.get(player.getName())) {
-						FoolsGoldPlugin.addWalkSpeed(player, SLOWNESS_AMOUNT);
+						FoolsGoldPlugin.addWalkSpeed(player, slownessAmount);
 						weGaveSlow.put(player.getName(), false);
 					}
 				}

@@ -1,4 +1,5 @@
 slowRain:
   enabled: true
+  slowness: 0.1f
 hayJump:
   enabled: true

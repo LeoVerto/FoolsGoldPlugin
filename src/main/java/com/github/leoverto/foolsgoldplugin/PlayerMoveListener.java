@@ -59,7 +59,7 @@ public class PlayerMoveListener implements Listener {
 		}
 	}
 	
-	private HashMap<String, Boolean> weGaveSlow = new HashMap<String, Boolean>();
+	protected static HashMap<String, Boolean> weGaveSlow = new HashMap<String, Boolean>();
 	
 	
 }

@@ -19,6 +19,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -26,7 +27,7 @@ public class EntityDamageListener implements Listener {
 	
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onEntityBlock(EntityDamageEvent event) {
-		if ((Boolean) FoolsGoldPlugin.hayJump.get("enabled")) {
+		if ((Boolean) FoolsGoldPlugin.hayJumpConfig.get("enabled")) {
 			if (event.getCause().equals(DamageCause.FALL)) {
 				if (event.getEntityType().equals(EntityType.PLAYER)) {
 					Player ePlayer = (Player) event.getEntity();
@@ -48,10 +49,14 @@ public class EntityDamageListener implements Listener {
 						}
 						
 						final World playerWorld = ePlayer.getWorld();
-						ItemStack flyingWheat = new ItemStack(Material.WHEAT, 1);
 						List<Integer> thingsToDelete = new ArrayList<Integer>();
 						
 						for (int i = 1; i < amountOfWheat; i++) {
+							ItemStack flyingWheat = new ItemStack(Material.WHEAT, 1);
+							ItemMeta flyingWheatMeta = flyingWheat.getItemMeta();
+							flyingWheatMeta.setDisplayName("Please report this bug #" + i);
+							flyingWheat.setItemMeta(flyingWheatMeta);
+							
 							Entity curWheat = playerWorld.dropItemNaturally(playerLocation, flyingWheat);
 							curWheat.setMetadata("flyingWheatID", new FixedMetadataValue(Bukkit.getPluginManager().getPlugin("FoolsGoldPlugin"), i));
 							thingsToDelete.add(curWheat.getEntityId());

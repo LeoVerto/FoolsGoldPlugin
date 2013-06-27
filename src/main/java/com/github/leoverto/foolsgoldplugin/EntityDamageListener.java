@@ -42,40 +42,43 @@ public class EntityDamageListener implements Listener {
 						int amountOfWheat;
 						if (blockBelowBelowPlayer.getTypeId() == Material.SPONGE.getId()) {
 							event.setDamage(0);
-							amountOfWheat = 12;
+							amountOfWheat = (Integer) FoolsGoldPlugin.hayJumpConfig.get("normalJumpHayAmount");
 						} else {
 							event.setDamage(event.getDamage() / 2);
-							amountOfWheat = 6;
+							amountOfWheat = (Integer) FoolsGoldPlugin.hayJumpConfig.get("halfJumpHayAmount");
 						}
 						
-						final World playerWorld = ePlayer.getWorld();
-						List<Integer> thingsToDelete = new ArrayList<Integer>();
+						if (amountOfWheat == 0) {
 						
-						for (int i = 1; i < amountOfWheat; i++) {
-							ItemStack flyingWheat = new ItemStack(Material.WHEAT, 1);
-							ItemMeta flyingWheatMeta = flyingWheat.getItemMeta();
-							flyingWheatMeta.setDisplayName("Please report this bug #" + i);
-							flyingWheat.setItemMeta(flyingWheatMeta);
+							final World playerWorld = ePlayer.getWorld();
+							List<Integer> thingsToDelete = new ArrayList<Integer>();
 							
-							Entity curWheat = playerWorld.dropItemNaturally(playerLocation, flyingWheat);
-							curWheat.setMetadata("flyingWheatID", new FixedMetadataValue(Bukkit.getPluginManager().getPlugin("FoolsGoldPlugin"), i));
-							thingsToDelete.add(curWheat.getEntityId());
-							FoolsGoldPlugin.itemsToNotPickup.add(curWheat.getEntityId());
-						}
-						
-						final List<Integer> thingsToDeleteFinal = thingsToDelete;
-						
-						
-						new BukkitRunnable(){
-							public void run() {
-								Collection<Item> worldItems = playerWorld.getEntitiesByClass(Item.class);
-								for (Item item : worldItems) {
-									if (thingsToDeleteFinal.contains(item.getEntityId())) {
-										item.remove();
+							for (int i = 1; i < amountOfWheat; i++) {
+								ItemStack flyingWheat = new ItemStack(Material.WHEAT, 1);
+								ItemMeta flyingWheatMeta = flyingWheat.getItemMeta();
+								flyingWheatMeta.setDisplayName("Please report this bug #" + i);
+								flyingWheat.setItemMeta(flyingWheatMeta);
+								
+								Entity curWheat = playerWorld.dropItemNaturally(playerLocation, flyingWheat);
+								curWheat.setMetadata("flyingWheatID", new FixedMetadataValue(Bukkit.getPluginManager().getPlugin("FoolsGoldPlugin"), i));
+								thingsToDelete.add(curWheat.getEntityId());
+								FoolsGoldPlugin.itemsToNotPickup.add(curWheat.getEntityId());
+							}
+							
+							final List<Integer> thingsToDeleteFinal = thingsToDelete;
+							
+							
+							new BukkitRunnable(){
+								public void run() {
+									Collection<Item> worldItems = playerWorld.getEntitiesByClass(Item.class);
+									for (Item item : worldItems) {
+										if (thingsToDeleteFinal.contains(item.getEntityId())) {
+											item.remove();
+										}
 									}
 								}
-							}
-						}.runTaskLater(Bukkit.getPluginManager().getPlugin("FoolsGoldPlugin"), 80);
+							}.runTaskLater(Bukkit.getPluginManager().getPlugin("FoolsGoldPlugin"), (Integer) FoolsGoldPlugin.hayJumpConfig.get("hayDecayTicks"));
+						}
 					}
 				}
 			}

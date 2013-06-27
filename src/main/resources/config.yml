@@ -2,3 +2,8 @@ slowRain:
   enabled: true
 hayJump:
   enabled: true
+  #Set to 0 to disable hay spawning
+  normalJumpHayAmount: 4
+  #Same as above
+  halfJumpHayAmount: 8
+  hayDecayTicks: 40

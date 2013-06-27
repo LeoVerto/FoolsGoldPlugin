@@ -13,6 +13,8 @@ import org.bukkit.potion.PotionEffectType;
 
 public class PlayerMoveListener implements Listener {
 	
+	private final float SLOWNESS_AMOUNT = 0.1f;
+	
 	@EventHandler
 	public void onPlayerMove(PlayerMoveEvent event) {
 		if ((Boolean) FoolsGoldPlugin.slowRainConfig.get("enabled")) {
@@ -24,29 +26,35 @@ public class PlayerMoveListener implements Listener {
 					int playerLocationY = playerLocation.getBlockY() + 1; //Find the player's height
 					if (highestBlockY < playerLocationY) { //If the highest block on the player's y is below the player...
 						if (weGaveSlow.containsKey(player.getName())) {
-							if (weGaveSlow.get(player.getName()) && player.hasPotionEffect(PotionEffectType.SLOW)) { //If we did give the player a slow effect and he has a slow effect...
-								 player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 1000000, 1), true); //Renew his slow effect.
-							 }
-							 if (!weGaveSlow.get(player.getName()) && !player.hasPotionEffect(PotionEffectType.SLOW)) { //If we didn't give him a slow effect and he doesn't have a slow effect...
-								 player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 1000000, 1), true); //Give him a slow effect.
+							if (!weGaveSlow.get(player.getName())) { //If we did give the player a slow effect already...
+								 FoolsGoldPlugin.subtractWalkSpeed(player, SLOWNESS_AMOUNT); //Renew his slow effect.
 								 weGaveSlow.put(player.getName(), true);
 							 }
-							 if (weGaveSlow.get(player.getName()) && !player.hasPotionEffect(PotionEffectType.SLOW)) {
-								 player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 1000000, 1), true);
-							 }
 						} else {
-							if (!player.hasPotionEffect(PotionEffectType.SLOW)) {
-								player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 1000000, 1), true);
-								weGaveSlow.put(player.getName(), true);
-							}
+							FoolsGoldPlugin.subtractWalkSpeed(player, SLOWNESS_AMOUNT);
+							weGaveSlow.put(player.getName(), true);
 						}
 					} else { //If the highest block on the player's y is above the player, e.g. he's under cover...
 						if (weGaveSlow.containsKey(player.getName())) { //Make sure he has the weGaveSlow metadata, otherwise this part is redundant.
-							if (weGaveSlow.get(player.getName()) && player.hasPotionEffect(PotionEffectType.SLOW)) { //If we gave the player a slow effect, and he has a slow effect...
-								 player.removePotionEffect(PotionEffectType.SLOW); //Remove his slow effect.
+							if (weGaveSlow.get(player.getName())) { //If we gave the player a slow effect, and he has a slow effect...
+								 FoolsGoldPlugin.addWalkSpeed(player, SLOWNESS_AMOUNT);; //Remove his slow effect.
 								 weGaveSlow.put(player.getName(), false);
 							 }
 						}
+					}
+				} else {
+					if (weGaveSlow.containsKey(player.getName())) {
+						if (weGaveSlow.get(player.getName())) {
+							FoolsGoldPlugin.addWalkSpeed(player, SLOWNESS_AMOUNT);
+							weGaveSlow.put(player.getName(), false);
+						}
+					}
+				}
+			} else {
+				if (weGaveSlow.containsKey(player.getName())) {
+					if (weGaveSlow.get(player.getName())) {
+						FoolsGoldPlugin.addWalkSpeed(player, SLOWNESS_AMOUNT);
+						weGaveSlow.put(player.getName(), false);
 					}
 				}
 			}

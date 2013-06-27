@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class FoolsGoldPlugin extends JavaPlugin {
@@ -27,6 +28,17 @@ public class FoolsGoldPlugin extends JavaPlugin {
 		
 	}
 	
+	protected static void addWalkSpeed(Player player, float speed) {
+		float currentWalkSpeed = player.getWalkSpeed();
+		float newWalkSpeed = currentWalkSpeed + speed;
+		player.setWalkSpeed(newWalkSpeed);
+	}
+	
+	protected static void subtractWalkSpeed(Player player, float speed) {
+		float currentWalkSpeed = player.getWalkSpeed();
+		float newWalkSpeed = currentWalkSpeed - speed;
+		player.setWalkSpeed(newWalkSpeed);
+	}
 	
 	protected static Map<String, Object> slowRainConfig;
 	protected static Map<String, Object> hayJumpConfig;

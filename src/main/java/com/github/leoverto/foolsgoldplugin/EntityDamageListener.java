@@ -26,7 +26,7 @@ public class EntityDamageListener implements Listener {
 	
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onEntityBlock(EntityDamageEvent event) {
-		if ((Boolean) FoolsGoldPlugin.hayJump.get("enabled")) {
+		if ((Boolean) FoolsGoldPlugin.hayJumpConfig.get("enabled")) {
 			if (event.getCause().equals(DamageCause.FALL)) {
 				if (event.getEntityType().equals(EntityType.PLAYER)) {
 					Player ePlayer = (Player) event.getEntity();

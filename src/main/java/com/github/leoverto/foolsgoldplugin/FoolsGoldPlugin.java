@@ -10,7 +10,7 @@ public class FoolsGoldPlugin extends JavaPlugin {
 	
 	public void loadConfig() {
 		slowRainConfig = this.getConfig().getConfigurationSection("slowRain").getValues(true);
-		hayJump = this.getConfig().getConfigurationSection("hayJump").getValues(true);
+		hayJumpConfig = this.getConfig().getConfigurationSection("hayJump").getValues(true);
 	}
 	
 	@Override
@@ -29,7 +29,7 @@ public class FoolsGoldPlugin extends JavaPlugin {
 	
 	
 	protected static Map<String, Object> slowRainConfig;
-	protected static Map<String, Object> hayJump;
+	protected static Map<String, Object> hayJumpConfig;
 	protected static List<Integer> itemsToNotPickup = new ArrayList<Integer>();
 
 }

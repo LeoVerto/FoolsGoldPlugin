@@ -21,7 +21,7 @@ public class PlayerMoveListener implements Listener {
 				if (player.getWorld().hasStorm()) { //Make sure it's raining where the player is
 					Location playerLocation = event.getTo(); //Find where the player moved to
 					int highestBlockY = player.getWorld().getHighestBlockYAt(playerLocation); //Find the highest block where the player moved to
-					int playerLocationY = playerLocation.getBlockY() + 1; //Find the player's height
+					int playerLocationY = playerLocation.getBlockY() + 2; //Find the player's height
 					if (highestBlockY < playerLocationY) { //If the highest block on the player's y is below the player...
 						if (weGaveSlow.containsKey(player.getName())) {
 							if (!weGaveSlow.get(player.getName())) { //If we did give the player a slow effect already...

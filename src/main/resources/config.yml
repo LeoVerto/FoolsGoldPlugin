@@ -1,6 +1,6 @@
 slowRain:
   enabled: true
-  slowness: 0.1f
+  slowness: 0.05f
 hayJump:
   enabled: true
   #Set to 0 to disable hay spawning

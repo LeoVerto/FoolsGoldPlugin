@@ -48,7 +48,7 @@ public class EntityDamageListener implements Listener {
 							amountOfWheat = (Integer) FoolsGoldPlugin.hayJumpConfig.get("halfJumpHayAmount");
 						}
 						
-						if (amountOfWheat == 0) {
+						if (amountOfWheat != 0) {
 						
 							final World playerWorld = ePlayer.getWorld();
 							List<Integer> thingsToDelete = new ArrayList<Integer>();
